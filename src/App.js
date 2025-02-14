@@ -6,12 +6,12 @@ import {Box, CssBaseline, styled} from "@mui/material";
 import Sidebar from "./components/sidebar/Sidebar";
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Login from "./pages/Login";
 import Category from "./components/Category/Category";
 import CategoryList from "./components/Category/CategoryList";
 import Subcategory from "./components/Subcategory/Subcategory";
 import SubcategoryList from "./components/Subcategory/SubcategoryList";
 import AddProduct1 from "./pages/AddProduct1";
+import { Login } from "@mui/icons-material";
 
 
 const drawerWidth = 300;
@@ -75,9 +75,9 @@ const App = () => {
             <Main open={open}>
                 <Routes>
                     <Route path="/" element={<Home/>}/>
+                    <Route path="/login" element={<Login />} />
                     <Route path="/add-product" element={<AddProduct1/>}/>
                     <Route path="/edit-product/:productId" element={<AddProduct1/>}/>
-                    <Route path="/login" element={<Login/>}/>
                     <Route path="/category" element={<CategoryList/>}/>
                     <Route path="/add-category" element={<Category/>}/>
                     <Route path="/edit-category/:id" element={<Category/>}/>

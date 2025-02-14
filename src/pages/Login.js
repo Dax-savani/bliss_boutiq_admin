@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Checkbox,
+  Container,
   Grid,
   IconButton,
   TextField,
@@ -85,133 +86,135 @@ const Login = () => {
   });
   return (
     <Box>
-      <Grid container justifyContent="center">
-        <Grid
-          item
-          xs={12}
-          sx={{
-            width: "100%",
-            padding: { xs: "20px", sm: "40px", md: "54px" },
-          }}
-        >
-          <Box>
-            <Typography
-              className="lato"
-              sx={{
-                fontSize: { xs: "20px", sm: "24px", md: "32px" },
-                fontWeight: "800",
-                marginBottom: 2,
-              }}
-            >
-              Log in to BLISS BOUTIQ
-            </Typography>
-          </Box>
-          <Box sx={{ marginBottom: 2 }}>
-            <Typography
-              component="p"
-              sx={{
-                fontSize: { xs: "14px", sm: "16px" },
-                marginBottom: 2,
-              }}
-            >
-              Login and enjoy member-only benefits and promotions with BLISS
-              BOUTIQ.
-            </Typography>
-            <Typography
-              component="p"
-              sx={{
-                fontSize: { xs: "14px", sm: "16px" },
-              }}
-            >
-              Please complete all fields marked with an *.
-            </Typography>
-          </Box>
-          <form onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="Email"
-                  name="email"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  error={formik.touched.email && Boolean(formik.errors.email)}
-                  helperText={formik.touched.email && formik.errors.email}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Box sx={{ position: "relative" }}>
+      <Container>
+        <Grid container justifyContent="center">
+          <Grid
+            item
+            xs={12}
+            sx={{
+              width: "100%",
+              padding: { xs: "20px", sm: "40px", md: "54px" },
+            }}
+          >
+            <Box>
+              <Typography
+                className="lato"
+                sx={{
+                  fontSize: { xs: "20px", sm: "24px", md: "32px" },
+                  fontWeight: "800",
+                  marginBottom: 2,
+                }}
+              >
+                Log in to BLISS BOUTIQ
+              </Typography>
+            </Box>
+            <Box sx={{ marginBottom: 2 }}>
+              <Typography
+                component="p"
+                sx={{
+                  fontSize: { xs: "14px", sm: "16px" },
+                  marginBottom: 2,
+                }}
+              >
+                Login and enjoy member-only benefits and promotions with BLISS
+                BOUTIQ.
+              </Typography>
+              <Typography
+                component="p"
+                sx={{
+                  fontSize: { xs: "14px", sm: "16px" },
+                }}
+              >
+                Please complete all fields marked with an *.
+              </Typography>
+            </Box>
+            <form onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    label="Password"
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    value={formik.values.password}
+                    label="Email"
+                    name="email"
+                    value={formik.values.email}
                     onChange={formik.handleChange}
-                    error={
-                      formik.touched.password && Boolean(formik.errors.password)
-                    }
-                    helperText={
-                      formik.touched.password && formik.errors.password
-                    }
+                    error={formik.touched.email && Boolean(formik.errors.email)}
+                    helperText={formik.touched.email && formik.errors.email}
                   />
-                  <IconButton
-                    onClick={handleClickShowPassword}
-                    sx={{ position: "absolute", right: 10, top: 10 }}
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </Box>
-              </Grid>
-              <Grid item xs={12}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    flexDirection: { xs: "column", sm: "row" },
-                  }}
-                >
-                  <Typography sx={{ display: "flex", alignItems: "center" }}>
-                    <Checkbox />
-                    Remember me
-                  </Typography>
-                  <Typography sx={{ textDecoration: "underline" }}>
-                    Forgot your password?
-                  </Typography>
-                </Box>
-              </Grid>
-              <Grid item xs={12}>
-                <Box display="flex" justifyContent="flex-end" my={3}>
-                  <Button
-                    type="submit"
-                    variant="contained"
+                </Grid>
+                <Grid item xs={12}>
+                  <Box sx={{ position: "relative" }}>
+                    <TextField
+                      fullWidth
+                      label="Password"
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      value={formik.values.password}
+                      onChange={formik.handleChange}
+                      error={
+                        formik.touched.password && Boolean(formik.errors.password)
+                      }
+                      helperText={
+                        formik.touched.password && formik.errors.password
+                      }
+                    />
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      sx={{ position: "absolute", right: 10, top: 10 }}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </Box>
+                </Grid>
+                <Grid item xs={12}>
+                  <Box
                     sx={{
-                      textTransform: "unset",
-                      border: "1px solid black",
-                      padding: {
-                        xs: "12px 30px",
-                        sm: "12px 60px",
-                        md: "12px 88px",
-                      },
-                      fontSize: "16px",
-                      fontWeight: "500",
-                      borderRadius: "0px",
-                      backgroundColor: "#000000",
-                      "&:hover": {
-                        backgroundColor: "#FFFFFF",
-                        color: "#000000",
-                      },
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      flexDirection: { xs: "column", sm: "row" },
                     }}
                   >
-                    LOGIN
-                  </Button>
-                </Box>
+                    <Typography sx={{ display: "flex", alignItems: "center" }}>
+                      <Checkbox />
+                      Remember me
+                    </Typography>
+                    <Typography sx={{ textDecoration: "underline" }}>
+                      Forgot your password?
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item xs={12}>
+                  <Box display="flex" justifyContent="flex-end" my={3}>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      sx={{
+                        textTransform: "unset",
+                        border: "1px solid black",
+                        padding: {
+                          xs: "12px 30px",
+                          sm: "12px 60px",
+                          md: "12px 88px",
+                        },
+                        fontSize: "16px",
+                        fontWeight: "500",
+                        borderRadius: "0px",
+                        backgroundColor: "#000000",
+                        "&:hover": {
+                          backgroundColor: "#FFFFFF",
+                          color: "#000000",
+                        },
+                      }}
+                    >
+                      LOGIN
+                    </Button>
+                  </Box>
+                </Grid>
               </Grid>
-            </Grid>
-          </form>
+            </form>
+          </Grid>
         </Grid>
-      </Grid>
+      </Container>
     </Box>
   );
 };
