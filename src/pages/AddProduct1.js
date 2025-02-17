@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
     TextField,
     Button,
@@ -13,10 +13,10 @@ import {
 } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import axiosInstance from "../Instance";
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function AddProductForm() {
-    const {productId} = useParams(); // Get the product ID from the route params (for editing)
+    const { productId } = useParams(); // Get the product ID from the route params (for editing)
     const navigate = useNavigate();
 
     const token = localStorage.getItem("token");
@@ -33,11 +33,11 @@ function AddProductForm() {
                 color: "",
                 hex: "",
                 product_images: [],
-                size_options: [{size: "", stock: ""}],
-                price: {original_price: "", discounted_price: ""},
+                size_options: [{ size: "", stock: "" }],
+                price: { original_price: "", discounted_price: "" },
             },
         ],
-        other_info: [{title: "", description: ""}],
+        other_info: [{ title: "", description: "" }],
         instruction: [],
     });
 
@@ -121,12 +121,12 @@ function AddProductForm() {
     }, [productId, formData.category]);
 
     const handleChange = (e) => {
-        const {name, value} = e.target;
-        setFormData((prevState) => ({...prevState, [name]: value}));
+        const { name, value } = e.target;
+        setFormData((prevState) => ({ ...prevState, [name]: value }));
     };
 
     const handleColorChange = (e, index) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         const updatedColors = [...formData.color_options];
         updatedColors[index][name] = value;
         setFormData((prevState) => ({
@@ -139,11 +139,11 @@ function AddProductForm() {
         const files = Array.from(e.target.files);
         const updatedColors = [...formData.color_options];
         updatedColors[colorIndex].product_images = files;
-        setFormData({...formData, color_options: updatedColors});
+        setFormData({ ...formData, color_options: updatedColors });
     };
 
     const handleSizeChange = (e, colorIndex, sizeIndex) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         const updatedColors = [...formData.color_options];
         updatedColors[colorIndex].size_options[sizeIndex][name] = value;
         setFormData((prevState) => ({
@@ -161,8 +161,8 @@ function AddProductForm() {
                     color: "",
                     hex: "",
                     product_images: [],
-                    size_options: [{size: "", stock: ""}],
-                    price: {original_price: "", discounted_price: ""},
+                    size_options: [{ size: "", stock: "" }],
+                    price: { original_price: "", discounted_price: "" },
                 },
             ],
         }));
@@ -178,7 +178,7 @@ function AddProductForm() {
 
     const handleAddSize = (colorIndex) => {
         const updatedColors = [...formData.color_options];
-        updatedColors[colorIndex].size_options.push({size: "", stock: ""});
+        updatedColors[colorIndex].size_options.push({ size: "", stock: "" });
         setFormData((prevState) => ({
             ...prevState,
             color_options: updatedColors,
@@ -200,11 +200,11 @@ function AddProductForm() {
         updatedColors[colorIndex].product_images = updatedColors[colorIndex].product_images.filter(
             (_, index) => index !== imageIndex
         );
-        setFormData({...formData, color_options: updatedColors});
+        setFormData({ ...formData, color_options: updatedColors });
     };
 
     const handlePriceChange = (e, colorIndex) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         const updatedColors = [...formData.color_options];
         updatedColors[colorIndex].price = {
             ...updatedColors[colorIndex].price,
@@ -219,7 +219,7 @@ function AddProductForm() {
     const handleAddOtherInfo = () => {
         setFormData((prev) => ({
             ...prev,
-            other_info: [...prev.other_info, {title: "", description: ""}],
+            other_info: [...prev.other_info, { title: "", description: "" }],
         }));
     };
 
@@ -236,7 +236,7 @@ function AddProductForm() {
             ...newOtherInfoOptions[index],
             [e.target.name]: e.target.value,
         };
-        setFormData((prev) => ({...prev, other_info: newOtherInfoOptions}));
+        setFormData((prev) => ({ ...prev, other_info: newOtherInfoOptions }));
     };
 
     const handleIntructionChange = (e, index) => {
@@ -305,10 +305,10 @@ function AddProductForm() {
         try {
             const response = productId
                 ? await axiosInstance.put(`/api/product/${productId}`, formToSend, {
-                    headers: {"Content-Type": "multipart/form-data"," token": `Bearer ${token}`},
+                    headers: { "Content-Type": "multipart/form-data", " token": `Bearer ${token}` },
                 })
                 : await axiosInstance.post("/api/product", formToSend, {
-                    headers: {"Content-Type": "multipart/form-data"," token": `Bearer ${token}`},
+                    headers: { "Content-Type": "multipart/form-data", " token": `Bearer ${token}` },
                 });
 
             if (response.status === 200 || response.status === 201) {
@@ -324,7 +324,7 @@ function AddProductForm() {
 
 
     return (
-        <Container sx={{padding: "20px", mt: "50px"}}>
+        <Container sx={{ padding: "20px", mt: "50px" }}>
             <Typography variant="h4" gutterBottom>
                 Add Product
             </Typography>
@@ -337,7 +337,7 @@ function AddProductForm() {
                         value={formData.title}
                         onChange={handleChange}
                         fullWidth
-                        sx={{mb: 2}}
+                        sx={{ mb: 2 }}
                     />
                 </Grid>
 
@@ -351,28 +351,9 @@ function AddProductForm() {
                         fullWidth
                         multiline
                         rows={4}
-                        sx={{mb: 2}}
+                        sx={{ mb: 2 }}
                     />
                 </Grid>
-
-                {/*<Grid item xs={12}>*/}
-                {/*    <FormControl fullWidth sx={{mb: 2}}>*/}
-                {/*        <InputLabel>Category</InputLabel>*/}
-                {/*        <Select*/}
-                {/*            label="Category"*/}
-                {/*            value={formData.category}*/}
-                {/*            onChange={handleChange}*/}
-                {/*            name="category"*/}
-                {/*        >*/}
-                {/*            {categories.map((category) => (*/}
-                {/*                <MenuItem key={category._id} value={category._id}>*/}
-                {/*                    {category.name}*/}
-                {/*                </MenuItem>*/}
-                {/*            ))}*/}
-                {/*        </Select>*/}
-                {/*    </FormControl>*/}
-                {/*</Grid>*/}
-
 
                 <Grid item xs={12} sm={6}>
                     <FormControl fullWidth>
@@ -392,7 +373,7 @@ function AddProductForm() {
                     </FormControl>
                 </Grid>
                 {formData.category && (
-                    <Grid item xs={12} sx={{mb: 2}}>
+                    <Grid item xs={12} sx={{ mb: 2 }}>
                         <FormControl fullWidth>
                             <InputLabel>Subcategory</InputLabel>
                             <Select
@@ -412,7 +393,7 @@ function AddProductForm() {
                 )}
 
                 <Grid item xs={12} sm={6}>
-                    <FormControl fullWidth sx={{mb: 2}}>
+                    <FormControl fullWidth sx={{ mb: 2 }}>
                         <InputLabel>Gender</InputLabel>
                         <Select
                             name="gender"
@@ -427,7 +408,7 @@ function AddProductForm() {
                     </FormControl>
                 </Grid>
 
-                {/*<Grid item xs={12} sx={{mb: 2}}>*/}
+                {/* <Grid item xs={12} sx={{mb: 2}}>*/}
                 {/*    <Typography variant="h6">Color Options</Typography>*/}
                 {/*    {formData.color_options.map((color, colorIndex) => (*/}
                 {/*        <Grid container spacing={2} key={colorIndex} sx={{mt: 2}}>*/}
@@ -543,15 +524,24 @@ function AddProductForm() {
                 {/*    <Button variant="outlined" onClick={handleAddColor} sx={{mt: 2}}>*/}
                 {/*        Add More Colors*/}
                 {/*    </Button>*/}
-                {/*</Grid>*/}
+                {/*</Grid> */}
 
-                <Grid item xs={12} sx={{mb: 2}}>
+                <Grid item xs={12} sx={{ mb: 2 }}>
                     <Typography variant="h6">Color Options</Typography>
                     {formData.color_options.map((color, colorIndex) => (
-                        <Grid container spacing={2} key={colorIndex} sx={{mt: 2}}>
+                        <Grid container spacing={2} key={colorIndex} sx={{ mt: 2 }}>
+                            {/* Image Upload Input */}
+                            <Grid item xs={3}>
+                                <input 
+                                    type="file"
+                                    multiple
+                                    onChange={(e) => handleImageUpload(e, colorIndex)}
+                                    style={{ marginTop: "16px" }}
+                                />
+                            </Grid>
                             {/* Color Input */}
                             <Grid item xs={4}>
-                                <TextField
+                                <TextField 
                                     label="Color"
                                     name="color"
                                     value={color.color}
@@ -570,16 +560,6 @@ function AddProductForm() {
                                 />
                             </Grid>
 
-                            {/* Image Upload Input */}
-                            <Grid item xs={4}>
-                                <input
-                                    type="file"
-                                    multiple
-                                    onChange={(e) => handleImageUpload(e, colorIndex)}
-                                    style={{marginTop: "16px"}}
-                                />
-                            </Grid>
-
                             {/* Show Selected Images */}
                             {color.product_images.length > 0 && (
                                 <Grid item xs={12}>
@@ -592,7 +572,7 @@ function AddProductForm() {
                                         }}
                                     >
                                         {color.product_images.map((image, index) => (
-                                            <div key={index} style={{position: "relative"}}>
+                                            <div key={index} style={{ position: "relative" }}>
                                                 {/* Check if the image is a URL or a File object */}
                                                 <img
                                                     src={
@@ -617,7 +597,7 @@ function AddProductForm() {
                                                         backgroundColor: "rgba(0, 0, 0, 0.5)",
                                                     }}
                                                 >
-                                                    <DeleteOutlineIcon/>
+                                                    <DeleteOutlineIcon />
                                                 </IconButton>
                                             </div>
                                         ))}
@@ -629,7 +609,7 @@ function AddProductForm() {
                             <Grid item xs={12}>
                                 <Typography variant="subtitle1">Sizes</Typography>
                                 {color.size_options.map((size, sizeIndex) => (
-                                    <Grid container spacing={2} key={sizeIndex} sx={{mt: 2}}>
+                                    <Grid container spacing={2} key={sizeIndex} sx={{ mt: 2 }}>
                                         <Grid item xs={5}>
                                             <TextField
                                                 label="Size"
@@ -661,7 +641,7 @@ function AddProductForm() {
                                                 onClick={() => handleRemoveSize(colorIndex, sizeIndex)}
                                                 color="error"
                                             >
-                                                <DeleteOutlineIcon/>
+                                                <DeleteOutlineIcon />
                                             </IconButton>
                                         </Grid>
                                     </Grid>
@@ -669,7 +649,7 @@ function AddProductForm() {
                                 <Button
                                     variant="outlined"
                                     onClick={() => handleAddSize(colorIndex)}
-                                    sx={{mt: 2}}
+                                    sx={{ mt: 2 }}
                                 >
                                     Add Size
                                 </Button>
@@ -678,7 +658,7 @@ function AddProductForm() {
                             {/* Price Section */}
                             <Grid item xs={12}>
                                 <Typography variant="subtitle1">Price</Typography>
-                                <Grid container spacing={2} sx={{mt: 2}}>
+                                <Grid container spacing={2} sx={{ mt: 2 }}>
                                     <Grid item xs={5}>
                                         <TextField
                                             label="Original Price"
@@ -708,22 +688,22 @@ function AddProductForm() {
                                     onClick={() => handleRemoveColor(colorIndex)}
                                     color="error"
                                 >
-                                    <DeleteOutlineIcon/>
+                                    <DeleteOutlineIcon />
                                 </IconButton>
                             </Grid>
                         </Grid>
                     ))}
 
                     {/* Add More Colors Button */}
-                    <Button variant="outlined" onClick={handleAddColor} sx={{mt: 2}}>
+                    <Button variant="outlined" onClick={handleAddColor} sx={{ mt: 2 }}>
                         Add More Colors
                     </Button>
                 </Grid>
 
-                <Grid item xs={12} sx={{mb: 2}}>
+                <Grid item xs={12} sx={{ mb: 2 }}>
                     <Typography variant="h6">Other Info</Typography>
                     {formData.other_info.map((option, index) => (
-                        <Grid container spacing={2} key={index} sx={{mt: 2}}>
+                        <Grid container spacing={2} key={index} sx={{ mt: 2 }}>
                             <Grid item xs={5}>
                                 <TextField
                                     label="Title"
@@ -749,7 +729,7 @@ function AddProductForm() {
                                     onClick={() => handleRemoveOtherInfo(index)}
                                     color="error"
                                 >
-                                    <DeleteOutlineIcon/>
+                                    <DeleteOutlineIcon />
                                 </IconButton>
                             </Grid>
                         </Grid>
@@ -758,16 +738,16 @@ function AddProductForm() {
                         variant="outlined"
                         color="primary"
                         onClick={handleAddOtherInfo}
-                        sx={{mt: 2}}
+                        sx={{ mt: 2 }}
                     >
                         Add Other Info
                     </Button>
                 </Grid>
 
-                <Grid item xs={12} sx={{mb: 2}}>
+                <Grid item xs={12} sx={{ mb: 2 }}>
                     <Typography variant="h6">Instructions</Typography>
                     {formData.instruction.map((instruction, index) => (
-                        <Grid container spacing={2} key={index} sx={{mt: 2}}>
+                        <Grid container spacing={2} key={index} sx={{ mt: 2 }}>
                             <Grid item xs={10}>
                                 <TextField
                                     label="Instruction Detail"
@@ -783,7 +763,7 @@ function AddProductForm() {
                                     onClick={() => handleRemoveIntruction(index)}
                                     color="error"
                                 >
-                                    <DeleteOutlineIcon/>
+                                    <DeleteOutlineIcon />
                                 </IconButton>
                             </Grid>
                         </Grid>
@@ -792,14 +772,14 @@ function AddProductForm() {
                         variant="outlined"
                         color="primary"
                         onClick={handleAddIntruction}
-                        sx={{mt: 2}}
+                        sx={{ mt: 2 }}
                     >
                         Add Instruction
                     </Button>
                 </Grid>
 
-                <Grid item xs={12} sx={{mt: 3}}>
-                    <Button type="submit" variant="contained" sx={{color: "darkblue"}}>
+                <Grid item xs={12} sx={{ mt: 3 }}>
+                    <Button type="submit" variant="contained" sx={{ color: "darkblue" }}>
                         Submit
                     </Button>
                 </Grid>
