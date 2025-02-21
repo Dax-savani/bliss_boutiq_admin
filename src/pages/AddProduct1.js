@@ -1,4 +1,316 @@
-import React, { useEffect, useState } from "react";
+// import React, {useEffect, useState} from "react";
+// import {
+//     TextField,
+//     Button,
+//     Grid,
+//     Typography,
+//     IconButton,
+//     Select,
+//     InputLabel,
+//     MenuItem,
+//     FormControl,
+//     Container,
+// } from "@mui/material";
+// import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+// import axiosInstance from "../Instance";
+// import {useNavigate, useParams} from "react-router-dom";
+//
+// function AddProductForm() {
+//     const {productId} = useParams(); // Get the product ID from the route params (for editing)
+//     const navigate = useNavigate();
+//
+//     const [formData, setFormData] = useState({
+//         title: "",
+//         description: "",
+//         category: "",
+//         subcategory: "",
+//         gender: "",
+//         stock: "",
+//         color_options: [
+//             {
+//                 color: "",
+//                 hex: "",
+//                 product_images: [],
+//                 size_options: [{size: "", stock: ""}],
+//                 price: {original_price: "", discounted_price: ""},
+//             },
+//         ],
+//         other_info: [{title: "", description: ""}],
+//         instruction: [],
+//     });
+//
+//     const [categories, setCategories] = useState([]);
+//     const [subcategories, setSubcategories] = useState([]);
+//
+//     const fetchCategoryData = async () => {
+//         try {
+//             const response = await axiosInstance.get("/api/category");
+//             if (response.data && Array.isArray(response.data.data)) {
+//                 setCategories(response.data.data);
+//             } else {
+//                 console.error("Unexpected response format");
+//             }
+//         } catch (error) {
+//             console.error("Error fetching categories:", error);
+//         }
+//     };
+//
+//     const fetchSubcategories = async (categoryId) => {
+//         try {
+//             const response = await axiosInstance.get(
+//                 `/api/category/${categoryId}/subcategory`
+//             );
+//             if (response.data && Array.isArray(response.data.data)) {
+//                 setSubcategories(response.data.data);
+//             } else {
+//                 console.error("Unexpected response format");
+//             }
+//         } catch (error) {
+//             console.error("Error fetching subcategories:", error);
+//         }
+//     };
+//
+//     const [loading, setLoading] = useState(true);
+// // Fetch product data
+//     const fetchProductData = async () => {
+//         try {
+//             // Always fetch categories
+//             await fetchCategoryData();
+//
+//             // If editing, fetch product details
+//             if (productId) {
+//                 const response = await axiosInstance.get(`/api/product/${productId}`);
+//                 if (response.data.data) {
+//                     const productData = response.data.data;
+//                     const colorOptionsWithImages = productData.color_options.map((colorOption) => ({
+//                         ...colorOption,
+//                         product_images: colorOption.product_images || [], // Ensure product_images is an array
+//                     }));
+//                     setFormData({
+//                         title: productData.title,
+//                         description: productData.description,
+//                         category: productData.category._id, // Use category ID for matching
+//                         subcategory: productData.subcategory,
+//                         gender: productData.gender,
+//                         stock: productData.stock,
+//                         color_options: productData.color_options,
+//                         other_info: productData.other_info,
+//                         instruction: productData.instruction,
+//                     });
+//
+//                     // Fetch subcategories based on the category
+//                     fetchSubcategories(productData.category._id);
+//                 }
+//             }
+//         } catch (error) {
+//             console.error("Error fetching product data:", error);
+//         } finally {
+//             setLoading(false); // Set loading to false after the data is fetched
+//         }
+//     };
+//
+//     useEffect(() => {
+//         fetchProductData();
+//     }, [productId]);
+//
+//
+//     const handleChange = (e) => {
+//         const {name, value} = e.target;
+//         setFormData((prevState) => ({...prevState, [name]: value}));
+//     };
+//
+//     const handleColorChange = (e, index) => {
+//         const {name, value} = e.target;
+//         const updatedColors = [...formData.color_options];
+//         updatedColors[index][name] = value;
+//         setFormData((prevState) => ({
+//             ...prevState,
+//             color_options: updatedColors,
+//         }));
+//     };
+//
+//     const handleImageUpload = (e, colorIndex) => {
+//         const files = Array.from(e.target.files);
+//         const updatedColors = [...formData.color_options];
+//         updatedColors[colorIndex].product_images = files;
+//         setFormData((prevState) => ({
+//             ...prevState,
+//             color_options: updatedColors,
+//         }));
+//     };
+//
+//     const handleSizeChange = (e, colorIndex, sizeIndex) => {
+//         const {name, value} = e.target;
+//         const updatedColors = [...formData.color_options];
+//         updatedColors[colorIndex].size_options[sizeIndex][name] = value;
+//         setFormData((prevState) => ({
+//             ...prevState,
+//             color_options: updatedColors,
+//         }));
+//     };
+//
+//     const handleAddColor = () => {
+//         setFormData((prevState) => ({
+//             ...prevState,
+//             color_options: [
+//                 ...prevState.color_options,
+//                 {
+//                     color: "",
+//                     hex: "",
+//                     product_images: [],
+//                     size_options: [{size: "", stock: ""}],
+//                     price: {original_price: "", discounted_price: ""},
+//                 },
+//             ],
+//         }));
+//     };
+//
+//     const handleRemoveColor = (index) => {
+//         const updatedColors = formData.color_options.filter((_, i) => i !== index);
+//         setFormData((prevState) => ({
+//             ...prevState,
+//             color_options: updatedColors,
+//         }));
+//     };
+//
+//     const handleAddSize = (colorIndex) => {
+//         const updatedColors = [...formData.color_options];
+//         updatedColors[colorIndex].size_options.push({size: "", stock: ""});
+//         setFormData((prevState) => ({
+//             ...prevState,
+//             color_options: updatedColors,
+//         }));
+//     };
+//
+//     const handleRemoveSize = (colorIndex, sizeIndex) => {
+//         const updatedColors = [...formData.color_options];
+//         updatedColors[colorIndex].size_options = updatedColors[colorIndex].size_options.filter((_, i) => i !== sizeIndex);
+//         setFormData((prevState) => ({
+//             ...prevState,
+//             color_options: updatedColors,
+//         }));
+//     };
+//
+//     const handlePriceChange = (e, colorIndex) => {
+//         const {name, value} = e.target;
+//         const updatedColors = [...formData.color_options];
+//         updatedColors[colorIndex].price = {
+//             ...updatedColors[colorIndex].price,
+//             [name]: value,
+//         };
+//         setFormData((prevState) => ({
+//             ...prevState,
+//             color_options: updatedColors,
+//         }));
+//     };
+//
+//     const handleAddOtherInfo = () => {
+//         setFormData((prev) => ({
+//             ...prev,
+//             other_info: [...prev.other_info, {title: "", description: ""}],
+//         }));
+//     };
+//
+//     const handleAddIntruction = () => {
+//         setFormData((prev) => ({
+//             ...prev,
+//             instruction: [...prev.instruction, ""],
+//         }));
+//     };
+//
+//     const handleOtherInfoChange = (e, index) => {
+//         const newOtherInfoOptions = [...formData.other_info];
+//         newOtherInfoOptions[index] = {
+//             ...newOtherInfoOptions[index],
+//             [e.target.name]: e.target.value,
+//         };
+//         setFormData((prev) => ({...prev, other_info: newOtherInfoOptions}));
+//     };
+//
+//     const handleIntructionChange = (e, index) => {
+//         const newIntructionOptions = [...formData.instruction];
+//         newIntructionOptions[index] = e.target.value;
+//         setFormData({
+//             ...formData,
+//             instruction: newIntructionOptions,
+//         });
+//     };
+//
+//     const handleRemoveOtherInfo = (index) => {
+//         const updatedOtherInfo = [...formData.other_info];
+//         updatedOtherInfo.splice(index, 1);
+//         setFormData({
+//             ...formData,
+//             other_info: updatedOtherInfo,
+//         });
+//     };
+//
+//     const handleRemoveIntruction = (index) => {
+//         const updatedIntruction = [...formData.instruction];
+//         updatedIntruction.splice(index, 1);
+//         setFormData({
+//             ...formData,
+//             instruction: updatedIntruction,
+//         });
+//     };
+//
+//     const handleSubmit = async (e) => {
+//         e.preventDefault();
+//
+//         const formToSend = new FormData();
+//
+//         formToSend.append("title", formData.title);
+//         formToSend.append("description", formData.description);
+//         formToSend.append("category", formData.category);
+//         formToSend.append("subcategory", formData.subcategory);
+//         formToSend.append("gender", formData.gender);
+//
+//         formData.color_options.forEach((item, index) => {
+//             item.product_images.forEach((img) => {
+//                 formToSend.append(`product_images[${index}]`, img);
+//             });
+//         });
+//
+//         const jsonColorOptions = formData.color_options.map((color) => ({
+//             color: color.color,
+//             hex: color.hex,
+//             size_options: color.size_options.map((size) => ({
+//                 size: size.size,
+//                 stock: size.stock,
+//             })),
+//             price: {
+//                 original_price: color.price.original_price,
+//                 discounted_price: color.price.discounted_price,
+//             },
+//         }));
+//
+//         const jsonString = JSON.stringify(jsonColorOptions);
+//         formToSend.append("color_options", jsonString);
+//
+//         formToSend.append("other_info", JSON.stringify(formData.other_info));
+//         formToSend.append("instruction", JSON.stringify(formData.instruction));
+//
+//         try {
+//             const response = productId
+//                 ? await axiosInstance.put(`/api/product/${productId}`, formToSend, {
+//                     headers: {"Content-Type": "multipart/form-data"},
+//                 })
+//                 : await axiosInstance.post("/api/product", formToSend, {
+//                     headers: {"Content-Type": "multipart/form-data"},
+//                 });
+//
+//             if (response.status === 200) {
+//                 console.log("Product successfully added/updated", response.data);
+//                 navigate("/"); // Redirect to a different page (e.g., product list)
+//             } else {
+//                 console.error("Error in response:", response.data);
+//             }
+//         } catch (error) {
+//             console.error("Error sending data:", error);
+//         }
+//     };
+
+import React, {useEffect, useState} from "react";
 import {
     TextField,
     Button,
@@ -13,13 +325,11 @@ import {
 } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import axiosInstance from "../Instance";
-import { useNavigate, useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 function AddProductForm() {
-    const { productId } = useParams(); // Get the product ID from the route params (for editing)
+    const {productId} = useParams(); // Get the product ID from the route params (for editing)
     const navigate = useNavigate();
-
-    const token = localStorage.getItem("token");
 
     const [formData, setFormData] = useState({
         title: "",
@@ -33,11 +343,11 @@ function AddProductForm() {
                 color: "",
                 hex: "",
                 product_images: [],
-                size_options: [{ size: "", stock: "" }],
-                price: { original_price: "", discounted_price: "" },
+                size_options: [{size: "", stock: ""}],
+                price: {original_price: "", discounted_price: ""},
             },
         ],
-        other_info: [{ title: "", description: "" }],
+        other_info: [{title: "", description: ""}],
         instruction: [],
     });
 
@@ -121,12 +431,12 @@ function AddProductForm() {
     }, [productId, formData.category]);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevState) => ({ ...prevState, [name]: value }));
+        const {name, value} = e.target;
+        setFormData((prevState) => ({...prevState, [name]: value}));
     };
 
     const handleColorChange = (e, index) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         const updatedColors = [...formData.color_options];
         updatedColors[index][name] = value;
         setFormData((prevState) => ({
@@ -139,11 +449,11 @@ function AddProductForm() {
         const files = Array.from(e.target.files);
         const updatedColors = [...formData.color_options];
         updatedColors[colorIndex].product_images = files;
-        setFormData({ ...formData, color_options: updatedColors });
+        setFormData({...formData, color_options: updatedColors});
     };
 
     const handleSizeChange = (e, colorIndex, sizeIndex) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         const updatedColors = [...formData.color_options];
         updatedColors[colorIndex].size_options[sizeIndex][name] = value;
         setFormData((prevState) => ({
@@ -161,8 +471,8 @@ function AddProductForm() {
                     color: "",
                     hex: "",
                     product_images: [],
-                    size_options: [{ size: "", stock: "" }],
-                    price: { original_price: "", discounted_price: "" },
+                    size_options: [{size: "", stock: ""}],
+                    price: {original_price: "", discounted_price: ""},
                 },
             ],
         }));
@@ -178,7 +488,7 @@ function AddProductForm() {
 
     const handleAddSize = (colorIndex) => {
         const updatedColors = [...formData.color_options];
-        updatedColors[colorIndex].size_options.push({ size: "", stock: "" });
+        updatedColors[colorIndex].size_options.push({size: "", stock: ""});
         setFormData((prevState) => ({
             ...prevState,
             color_options: updatedColors,
@@ -200,11 +510,11 @@ function AddProductForm() {
         updatedColors[colorIndex].product_images = updatedColors[colorIndex].product_images.filter(
             (_, index) => index !== imageIndex
         );
-        setFormData({ ...formData, color_options: updatedColors });
+        setFormData({...formData, color_options: updatedColors});
     };
 
     const handlePriceChange = (e, colorIndex) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         const updatedColors = [...formData.color_options];
         updatedColors[colorIndex].price = {
             ...updatedColors[colorIndex].price,
@@ -219,7 +529,7 @@ function AddProductForm() {
     const handleAddOtherInfo = () => {
         setFormData((prev) => ({
             ...prev,
-            other_info: [...prev.other_info, { title: "", description: "" }],
+            other_info: [...prev.other_info, {title: "", description: ""}],
         }));
     };
 
@@ -236,7 +546,7 @@ function AddProductForm() {
             ...newOtherInfoOptions[index],
             [e.target.name]: e.target.value,
         };
-        setFormData((prev) => ({ ...prev, other_info: newOtherInfoOptions }));
+        setFormData((prev) => ({...prev, other_info: newOtherInfoOptions}));
     };
 
     const handleIntructionChange = (e, index) => {
@@ -305,10 +615,10 @@ function AddProductForm() {
         try {
             const response = productId
                 ? await axiosInstance.put(`/api/product/${productId}`, formToSend, {
-                    headers: { "Content-Type": "multipart/form-data", " token": `Bearer ${token}` },
+                    headers: {"Content-Type": "multipart/form-data"},
                 })
                 : await axiosInstance.post("/api/product", formToSend, {
-                    headers: { "Content-Type": "multipart/form-data", " token": `Bearer ${token}` },
+                    headers: {"Content-Type": "multipart/form-data"},
                 });
 
             if (response.status === 200 || response.status === 201) {
@@ -324,7 +634,7 @@ function AddProductForm() {
 
 
     return (
-        <Container sx={{ padding: "20px", mt: "50px" }}>
+        <Container sx={{padding: "20px", mt: "50px"}}>
             <Typography variant="h4" gutterBottom>
                 Add Product
             </Typography>
@@ -337,7 +647,7 @@ function AddProductForm() {
                         value={formData.title}
                         onChange={handleChange}
                         fullWidth
-                        sx={{ mb: 2 }}
+                        sx={{mb: 2}}
                     />
                 </Grid>
 
@@ -351,9 +661,28 @@ function AddProductForm() {
                         fullWidth
                         multiline
                         rows={4}
-                        sx={{ mb: 2 }}
+                        sx={{mb: 2}}
                     />
                 </Grid>
+
+                {/*<Grid item xs={12}>*/}
+                {/*    <FormControl fullWidth sx={{mb: 2}}>*/}
+                {/*        <InputLabel>Category</InputLabel>*/}
+                {/*        <Select*/}
+                {/*            label="Category"*/}
+                {/*            value={formData.category}*/}
+                {/*            onChange={handleChange}*/}
+                {/*            name="category"*/}
+                {/*        >*/}
+                {/*            {categories.map((category) => (*/}
+                {/*                <MenuItem key={category._id} value={category._id}>*/}
+                {/*                    {category.name}*/}
+                {/*                </MenuItem>*/}
+                {/*            ))}*/}
+                {/*        </Select>*/}
+                {/*    </FormControl>*/}
+                {/*</Grid>*/}
+
 
                 <Grid item xs={12} sm={6}>
                     <FormControl fullWidth>
@@ -373,7 +702,7 @@ function AddProductForm() {
                     </FormControl>
                 </Grid>
                 {formData.category && (
-                    <Grid item xs={12} sx={{ mb: 2 }}>
+                    <Grid item xs={12} sx={{mb: 2}}>
                         <FormControl fullWidth>
                             <InputLabel>Subcategory</InputLabel>
                             <Select
@@ -393,7 +722,7 @@ function AddProductForm() {
                 )}
 
                 <Grid item xs={12} sm={6}>
-                    <FormControl fullWidth sx={{ mb: 2 }}>
+                    <FormControl fullWidth sx={{mb: 2}}>
                         <InputLabel>Gender</InputLabel>
                         <Select
                             name="gender"
@@ -408,7 +737,7 @@ function AddProductForm() {
                     </FormControl>
                 </Grid>
 
-                {/* <Grid item xs={12} sx={{mb: 2}}>*/}
+                {/*<Grid item xs={12} sx={{mb: 2}}>*/}
                 {/*    <Typography variant="h6">Color Options</Typography>*/}
                 {/*    {formData.color_options.map((color, colorIndex) => (*/}
                 {/*        <Grid container spacing={2} key={colorIndex} sx={{mt: 2}}>*/}
@@ -524,24 +853,15 @@ function AddProductForm() {
                 {/*    <Button variant="outlined" onClick={handleAddColor} sx={{mt: 2}}>*/}
                 {/*        Add More Colors*/}
                 {/*    </Button>*/}
-                {/*</Grid> */}
+                {/*</Grid>*/}
 
-                <Grid item xs={12} sx={{ mb: 2 }}>
+                <Grid item xs={12} sx={{mb: 2}}>
                     <Typography variant="h6">Color Options</Typography>
                     {formData.color_options.map((color, colorIndex) => (
-                        <Grid container spacing={2} key={colorIndex} sx={{ mt: 2 }}>
-                            {/* Image Upload Input */}
-                            <Grid item xs={3}>
-                                <input 
-                                    type="file"
-                                    multiple
-                                    onChange={(e) => handleImageUpload(e, colorIndex)}
-                                    style={{ marginTop: "16px" }}
-                                />
-                            </Grid>
+                        <Grid container spacing={2} key={colorIndex} sx={{mt: 2}}>
                             {/* Color Input */}
                             <Grid item xs={4}>
-                                <TextField 
+                                <TextField
                                     label="Color"
                                     name="color"
                                     value={color.color}
@@ -560,6 +880,16 @@ function AddProductForm() {
                                 />
                             </Grid>
 
+                            {/* Image Upload Input */}
+                            <Grid item xs={4}>
+                                <input
+                                    type="file"
+                                    multiple
+                                    onChange={(e) => handleImageUpload(e, colorIndex)}
+                                    style={{marginTop: "16px"}}
+                                />
+                            </Grid>
+
                             {/* Show Selected Images */}
                             {color.product_images.length > 0 && (
                                 <Grid item xs={12}>
@@ -572,7 +902,7 @@ function AddProductForm() {
                                         }}
                                     >
                                         {color.product_images.map((image, index) => (
-                                            <div key={index} style={{ position: "relative" }}>
+                                            <div key={index} style={{position: "relative"}}>
                                                 {/* Check if the image is a URL or a File object */}
                                                 <img
                                                     src={
@@ -597,7 +927,7 @@ function AddProductForm() {
                                                         backgroundColor: "rgba(0, 0, 0, 0.5)",
                                                     }}
                                                 >
-                                                    <DeleteOutlineIcon />
+                                                    <DeleteOutlineIcon/>
                                                 </IconButton>
                                             </div>
                                         ))}
@@ -609,7 +939,7 @@ function AddProductForm() {
                             <Grid item xs={12}>
                                 <Typography variant="subtitle1">Sizes</Typography>
                                 {color.size_options.map((size, sizeIndex) => (
-                                    <Grid container spacing={2} key={sizeIndex} sx={{ mt: 2 }}>
+                                    <Grid container spacing={2} key={sizeIndex} sx={{mt: 2}}>
                                         <Grid item xs={5}>
                                             <TextField
                                                 label="Size"
@@ -641,7 +971,7 @@ function AddProductForm() {
                                                 onClick={() => handleRemoveSize(colorIndex, sizeIndex)}
                                                 color="error"
                                             >
-                                                <DeleteOutlineIcon />
+                                                <DeleteOutlineIcon/>
                                             </IconButton>
                                         </Grid>
                                     </Grid>
@@ -649,7 +979,7 @@ function AddProductForm() {
                                 <Button
                                     variant="outlined"
                                     onClick={() => handleAddSize(colorIndex)}
-                                    sx={{ mt: 2 }}
+                                    sx={{mt: 2}}
                                 >
                                     Add Size
                                 </Button>
@@ -658,7 +988,7 @@ function AddProductForm() {
                             {/* Price Section */}
                             <Grid item xs={12}>
                                 <Typography variant="subtitle1">Price</Typography>
-                                <Grid container spacing={2} sx={{ mt: 2 }}>
+                                <Grid container spacing={2} sx={{mt: 2}}>
                                     <Grid item xs={5}>
                                         <TextField
                                             label="Original Price"
@@ -688,22 +1018,22 @@ function AddProductForm() {
                                     onClick={() => handleRemoveColor(colorIndex)}
                                     color="error"
                                 >
-                                    <DeleteOutlineIcon />
+                                    <DeleteOutlineIcon/>
                                 </IconButton>
                             </Grid>
                         </Grid>
                     ))}
 
                     {/* Add More Colors Button */}
-                    <Button variant="outlined" onClick={handleAddColor} sx={{ mt: 2 }}>
+                    <Button variant="outlined" onClick={handleAddColor} sx={{mt: 2}}>
                         Add More Colors
                     </Button>
                 </Grid>
 
-                <Grid item xs={12} sx={{ mb: 2 }}>
+                <Grid item xs={12} sx={{mb: 2}}>
                     <Typography variant="h6">Other Info</Typography>
                     {formData.other_info.map((option, index) => (
-                        <Grid container spacing={2} key={index} sx={{ mt: 2 }}>
+                        <Grid container spacing={2} key={index} sx={{mt: 2}}>
                             <Grid item xs={5}>
                                 <TextField
                                     label="Title"
@@ -729,7 +1059,7 @@ function AddProductForm() {
                                     onClick={() => handleRemoveOtherInfo(index)}
                                     color="error"
                                 >
-                                    <DeleteOutlineIcon />
+                                    <DeleteOutlineIcon/>
                                 </IconButton>
                             </Grid>
                         </Grid>
@@ -738,16 +1068,16 @@ function AddProductForm() {
                         variant="outlined"
                         color="primary"
                         onClick={handleAddOtherInfo}
-                        sx={{ mt: 2 }}
+                        sx={{mt: 2}}
                     >
                         Add Other Info
                     </Button>
                 </Grid>
 
-                <Grid item xs={12} sx={{ mb: 2 }}>
+                <Grid item xs={12} sx={{mb: 2}}>
                     <Typography variant="h6">Instructions</Typography>
                     {formData.instruction.map((instruction, index) => (
-                        <Grid container spacing={2} key={index} sx={{ mt: 2 }}>
+                        <Grid container spacing={2} key={index} sx={{mt: 2}}>
                             <Grid item xs={10}>
                                 <TextField
                                     label="Instruction Detail"
@@ -763,7 +1093,7 @@ function AddProductForm() {
                                     onClick={() => handleRemoveIntruction(index)}
                                     color="error"
                                 >
-                                    <DeleteOutlineIcon />
+                                    <DeleteOutlineIcon/>
                                 </IconButton>
                             </Grid>
                         </Grid>
@@ -772,14 +1102,14 @@ function AddProductForm() {
                         variant="outlined"
                         color="primary"
                         onClick={handleAddIntruction}
-                        sx={{ mt: 2 }}
+                        sx={{mt: 2}}
                     >
                         Add Instruction
                     </Button>
                 </Grid>
 
-                <Grid item xs={12} sx={{ mt: 3 }}>
-                    <Button type="submit" variant="contained" sx={{ color: "darkblue" }}>
+                <Grid item xs={12} sx={{mt: 3}}>
+                    <Button type="submit" variant="contained" sx={{color: "darkblue"}}>
                         Submit
                     </Button>
                 </Grid>

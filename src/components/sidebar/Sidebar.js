@@ -224,11 +224,11 @@ const Sidebar = ({
               my: "25px",
             }}
           >
-            <Typography sx={{ color: "white" }}>John Duo</Typography>
+            <Typography sx={{ color: "white" }}>Jhon Doe</Typography>
 
             <Box>
               <Typography sx={{ fontSize: "14px" }}>
-                john@gmail.com
+                jhondoe90@gmail.com
               </Typography>
             </Box>
           </Box>
@@ -300,11 +300,11 @@ const Sidebar = ({
               my: "25px",
             }}
           >
-            <Typography sx={{ color: "000" }}>John Duo</Typography>
+            <Typography sx={{ color: "000" }}>Jhon Doe</Typography>
 
             <Box>
               <Typography sx={{ fontSize: "14px" }}>
-              john@gmail.com
+                jhondoe90@gmail.com
               </Typography>
             </Box>
           </Box>
