@@ -242,7 +242,7 @@ const Subcategory = () => {
                                     }
                                     alt="Upload Preview"
                                     style={{
-                                        height: 100,
+                                        width: '100px',
                                         cursor: "pointer",
                                         objectFit: "cover",
                                     }}
@@ -289,7 +289,23 @@ const Subcategory = () => {
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Button type="submit" variant="contained" color="primary" fullWidth>
+                        <Button type="submit" variant="contained" fullWidth
+                        sx={{
+                            width: "100%",
+                            margin: "10px 0px",
+                            textTransform: "unset",
+                            border: "1px solid black",
+                            padding: "6px 24px",
+                            fontSize: "16px",
+                            fontWeight: "500",
+                            borderRadius: "0px",
+                            backgroundColor: '#000',
+                            color: '#fff',
+                            "&:hover": {
+                                backgroundColor: '#fff',
+                                color: '#000',
+                            },
+                        }}>
                             Add
                         </Button>
                     </Grid>

@@ -130,12 +130,12 @@ const Category = () => {
                     typeof formData.image === "string"
                       ? formData.image
                       : formData.image
-                      ? URL.createObjectURL(formData.image)
-                      : upload_area
+                        ? URL.createObjectURL(formData.image)
+                        : upload_area
                   }
                   alt="Upload Preview"
                   style={{
-                    height: 100,
+                    width: '100px',
                     cursor: "pointer",
                     objectFit: "cover",
                   }}
@@ -168,9 +168,24 @@ const Category = () => {
             <Button
               type="submit"
               variant="contained"
-              color="primary"
               fullWidth
               disabled={isLoading}
+              sx={{
+                width: "100%",
+                margin: "10px 0px",
+                textTransform: "unset",
+                border: "1px solid black",
+                padding: "6px 24px",
+                fontSize: "16px",
+                fontWeight: "500",
+                borderRadius: "0px",
+                backgroundColor: '#000',
+                color: '#fff',
+                "&:hover": {
+                  backgroundColor: '#fff',
+                  color: '#000',
+                },
+              }}
             >
               {isLoading ? "Saving..." : id ? "Update" : "Add"}
             </Button>

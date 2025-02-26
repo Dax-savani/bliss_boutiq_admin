@@ -167,6 +167,8 @@
 
 // export default SubcategoryList;
 
+
+
 import React, {useEffect, useState} from "react";
 import axiosInstance from "../../Instance";
 import {
@@ -256,19 +258,28 @@ const SubcategoryList = () => {
     }, []);
 
     return (
-        <Box mt={6}>
+        <Box p={2} mt={5}>
             <Typography variant="h4" gutterBottom>
                 Subcategory List
             </Typography>
             <Box sx={{display: "flex", justifyContent: "end"}}>
                 <Button
-                    sx={{
-                        marginBottom: "20px",
-                        backgroundColor: "#4CAF50",
-                        fontWeight: "bold",
-                        padding: "10px 20px",
-                        color: "white",
-                    }}
+                   sx={{
+                    // width: "100%",
+                    mb: "20px",
+                    textTransform: "unset",
+                    border: "1px solid black",
+                    padding: "6px 24px",
+                    fontSize: "16px",
+                    fontWeight: "500",
+                    borderRadius: "0px",
+                    backgroundColor: '#000',
+                    color: '#fff',
+                    "&:hover": {
+                        backgroundColor: '#fff',
+                        color: '#000',
+                    },
+                }}
                     onClick={() => navigate("/add-subcategory")}
                 >
                     Add Subcategory
@@ -291,11 +302,7 @@ const SubcategoryList = () => {
                 </Select>
             </FormControl>
 
-            {loading ? (
-                <Box mt={5} display="flex" justifyContent="center">
-                    <CircularProgress/>
-                </Box>
-            ) : error ? (
+            {error ? (
                 <Typography color="error">{error}</Typography>
             ) : categories.length === 0 ? (
                 <Typography mt={2}>
@@ -316,12 +323,12 @@ const SubcategoryList = () => {
                             {categories.map((subcategory, index) => (
                                 <TableRow key={subcategory._id}>
                                     <TableCell>{index + 1}</TableCell>
-                                    <TableCell>
+                                    <TableCell sx={{width:'100px'}}>
                                         <img
                                             src={subcategory.image}
                                             alt={subcategory.name}
                                             style={{
-                                                height: 50,
+                                                width:'100%',
                                                 objectFit: "cover",
                                                 borderRadius: 4,
                                             }}

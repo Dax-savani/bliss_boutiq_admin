@@ -79,7 +79,7 @@
 //                                         variant="contained"
 //                                         color="primary"
 //                                         sx={{marginRight: 1}}
-//                                         onClick={() => navigate(`/edit-product/${item._id}`)}
+//                                         onClick={() => navigate(`/edit-product/₹{item._id}`)}
 //                                     >
 //                                         <EditIcon/>
 //                                     </IconButton>
@@ -116,8 +116,8 @@ import {
     IconButton,
     Collapse,
 } from "@mui/material";
-import React, {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -148,12 +148,12 @@ const Home = () => {
     }, []);
 
     return (
-        <Box mt={5} p={2}>
+        <Box p={2} mt={5}>
             <Typography variant="h4" gutterBottom>
                 Product List
             </Typography>
             <TableContainer component={Paper}>
-                <Table sx={{minWidth: 650}}>
+                <Table sx={{ minWidth: 650 }}>
                     <TableHead>
                         <TableRow>
                             <TableCell>Sr No.</TableCell>
@@ -171,12 +171,12 @@ const Home = () => {
                             <React.Fragment key={item._id}>
                                 <TableRow>
                                     <TableCell>{index + 1}</TableCell>
-                                    <TableCell>
+                                    <TableCell sx={{ width: '80px' }}>
                                         <img
                                             src={item.color_options[0]?.product_images[0]}
                                             alt="Product"
-                                            width="60"
-                                            height="60"
+                                            width="100%"
+                                            height="100%"
                                         />
                                     </TableCell>
                                     <TableCell>{item.title}</TableCell>
@@ -186,15 +186,15 @@ const Home = () => {
                                     <TableCell>
                                         <IconButton
                                             onClick={() => navigate(`/edit-product/${item._id}`)}
-                                            sx={{color: "gray"}}
+                                            sx={{ color: "gray" }}
                                         >
-                                            <EditIcon/>
+                                            <EditIcon />
                                         </IconButton>
                                         <IconButton
                                             onClick={() => handleDelete(item._id)}
-                                            sx={{color: "red"}}
+                                            sx={{ color: "red" }}
                                         >
-                                            <DeleteOutlineIcon/>
+                                            <DeleteOutlineIcon />
                                         </IconButton>
                                     </TableCell>
                                     <TableCell>
@@ -204,9 +204,9 @@ const Home = () => {
                                             }
                                         >
                                             {openRow === index ? (
-                                                <KeyboardArrowUpIcon/>
+                                                <KeyboardArrowUpIcon />
                                             ) : (
-                                                <KeyboardArrowDownIcon/>
+                                                <KeyboardArrowDownIcon />
                                             )}
                                         </IconButton>
                                     </TableCell>
@@ -215,66 +215,90 @@ const Home = () => {
                                     <TableRow>
                                         <TableCell colSpan={8}>
                                             <Collapse in={openRow === index} timeout="auto" unmountOnExit>
-                                                <Box sx={{margin: 2}}>
-                                                    <Typography variant="h6" gutterBottom>
+                                                <Box sx={{ p: 2, borderRadius: 2, bgcolor: "#f9f9f9", boxShadow: 1 }}>
+                                                    <Typography
+                                                        sx={{
+                                                            fontSize: "24px",
+                                                            fontWeight: "600",
+                                                            borderBottom: "2px solid #000",
+                                                            pb: 1,
+                                                            mb: 2,
+                                                        }}
+                                                    >
                                                         Color Options
                                                     </Typography>
+
                                                     {item.color_options.map((color, colorIndex) => (
-                                                        <Box key={colorIndex} mb={2}>
-                                                            <Typography>
+                                                        <Box key={colorIndex} sx={{ mb: 3, p: 2, border: "1px solid #ddd", borderRadius: 2 }}>
+                                                            <Typography sx={{ fontSize: "18px", fontWeight: "500", mb: 1 }}>
                                                                 <strong>Color:</strong> {color.color}
                                                             </Typography>
-                                                            <Typography>
+                                                            <Typography sx={{ mb: 1 }}>
                                                                 <strong>Hex:</strong> {color.hex}
                                                             </Typography>
-                                                            <Typography>
+
+                                                            <Typography sx={{ mb: 1 }}>
                                                                 <strong>Images:</strong>
                                                             </Typography>
-                                                            <Box>
+                                                            <Box sx={{ display: "flex", gap: 1, width: '100px' }}>
                                                                 {color.product_images.map((img, imgIndex) => (
                                                                     <img
                                                                         key={imgIndex}
                                                                         src={img}
                                                                         alt="Color Option"
-                                                                        width="60"
-                                                                        height="60"
-                                                                        style={{marginRight: 5}}
+                                                                        width="100%"
+                                                                        height="100%"
+                                                                        style={{ borderRadius: 4, border: "1px solid #ccc" }}
                                                                     />
                                                                 ))}
                                                             </Box>
-                                                            <Typography>
+
+                                                            <Typography sx={{ mt: 2, fontWeight: "500" }}>
                                                                 <strong>Sizes:</strong>
                                                             </Typography>
-                                                            {color.size_options.map((size, sizeIndex) => (
-                                                                <Typography key={sizeIndex}>
-                                                                    Size: {size.size}, Stock: {size.stock}
-                                                                </Typography>
-                                                            ))}
-                                                            <Typography>
-                                                                <strong>Price:</strong> Original: {color.price.original_price},
-                                                                Discounted: {color.price.discounted_price}
+                                                            <Box sx={{ pl: 2 }}>
+                                                                {color.size_options.map((size, sizeIndex) => (
+                                                                    <Typography key={sizeIndex} sx={{ fontSize: "14px" }}>
+                                                                        Size: {size.size}, Stock: {size.stock}
+                                                                    </Typography>
+                                                                ))}
+                                                            </Box>
+
+                                                            <Typography sx={{ mt: 2, fontWeight: "500" }}>
+                                                                <strong>Price:</strong> Original:   <span style={{ textDecoration: "line-through", color: "gray", marginRight: "8px" }}> ₹{color.price.original_price}</span>, Discounted: <span style={{ color: "red", fontWeight: "bold" }}> ₹{color.price.discounted_price}</span>
                                                             </Typography>
                                                         </Box>
                                                     ))}
-                                                    <Typography variant="h6" gutterBottom>
-                                                        Instructions
-                                                    </Typography>
-                                                    {item.instruction.map((inst, instIndex) => (
-                                                        <Typography key={instIndex}>{inst}</Typography>
-                                                    ))}
-                                                    <Typography variant="h6" gutterBottom>
+
+                                                    <Box sx={{ mb: 3 }}>
+                                                        <Typography sx={{ fontSize: "20px", fontWeight: "600", borderBottom: "1px solid #000", pb: 1, mb: 1 }}>
+                                                            Instructions
+                                                        </Typography>
+                                                        <Box sx={{ pl: 2 }}>
+                                                            {item.instruction.map((inst, instIndex) => (
+                                                                <Typography key={instIndex} sx={{ fontSize: "14px" }}>
+                                                                    {inst}
+                                                                </Typography>
+                                                            ))}
+                                                        </Box>
+                                                    </Box>
+
+                                                    <Typography sx={{ fontSize: "20px", fontWeight: "600", borderBottom: "1px solid #000", pb: 1, mb: 1 }}>
                                                         Other Info
                                                     </Typography>
-                                                    {item.other_info.map((info, infoIndex) => (
-                                                        <Typography key={infoIndex}>
-                                                            <strong>{info.title}:</strong> {info.description}
-                                                        </Typography>
-                                                    ))}
+                                                    <Box sx={{ pl: 2 }}>
+                                                        {item.other_info.map((info, infoIndex) => (
+                                                            <Typography key={infoIndex} sx={{ fontSize: "14px" }}>
+                                                                <strong>{info.title}:</strong> {info.description}
+                                                            </Typography>
+                                                        ))}
+                                                    </Box>
                                                 </Box>
                                             </Collapse>
                                         </TableCell>
                                     </TableRow>
                                 )}
+
                             </React.Fragment>
                         ))}
                     </TableBody>

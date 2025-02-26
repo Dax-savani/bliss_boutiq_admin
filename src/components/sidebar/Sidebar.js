@@ -6,8 +6,11 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import AddIcon from '@mui/icons-material/Add';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import CategoryIcon from '@mui/icons-material/Category';
+import BakeryDiningIcon from '@mui/icons-material/BakeryDining';
+import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import { Box, Typography, Collapse } from "@mui/material";
@@ -24,30 +27,18 @@ const Sidebar = ({
   setOpen,
   handleDrawerToggle,
 }) => {
-  const drawerWidth = 300;
+  const drawerWidth = 250;
   const [css, setCss] = useState("");
   const [subCss, setSubCss] = useState("");
   const [openSubmenu, setOpenSubmenu] = useState({});
   const navigate = useNavigate()
 
   const menuItems = [
-    { text: "Category", icon: <MailIcon />, path: "/category" },
-    { text: "Subcategory", icon: <MailIcon />, path: "/subcategory" },
-    { text: "Inbox", icon: <InboxIcon />, path: "/" },
-    { text: "Starred", icon: <MailIcon /> , path: "/"},
-    { text: "Send email", icon: <InboxIcon /> , path: "/"},
-    // { text: "Drafts", icon: <MailIcon /> },
-    {
-      text: "All mail",
-      icon: <MailIcon />,
-      path: "/",
-      submenu: [
-        { text: "Single", icon: <InboxIcon /> , path: "/"},
-        { text: "Spam", icon: <MailIcon /> , path: "/"},
-      ],
-    },
-    { text: "Trash", icon: <InboxIcon /> , path: "/"},
-    { text: "Spam", icon: <MailIcon /> , path: "/"},
+    { text: "Add Product", icon: <AddIcon />, path: "/add-product" },
+    { text: "Listing", icon: <FilterListIcon />, path: "/" },
+    { text: "Category", icon: <CategoryIcon />, path: "/category" },
+    { text: "Subcategory", icon: <BakeryDiningIcon />, path: "/subcategory" },
+    { text: "Order", icon: <CardGiftcardIcon />, path: "/order" },
   ];
 
   const handleSubmenuClick = (text) => {
@@ -83,10 +74,10 @@ const Sidebar = ({
               disablePadding
               sx={{
                 py: "2px",
-                borderRadius: "10px",
+                borderRadius: 1,
                 transition: ".3s",
                 "&:hover": {
-                  backgroundColor: theme.palette?.sidebarHover || "#34495e",
+                  backgroundColor: theme.palette?.sidebarHover || "#000",
                   color: "white",
                   "& .icon": { color: "white" },
                 },
@@ -126,11 +117,11 @@ const Sidebar = ({
                       sx={{
                         py: "2px",
                         pl: 4,
-                        borderRadius: "10px",
+                        borderRadius: 1,
                         transition: ".3s",
                         "&:hover": {
                           backgroundColor:
-                            theme.palette?.sidebarHover || "#34495e",
+                            theme.palette?.sidebarHover || "#000",
                           color: "white",
                           "& .icon": { color: "white" },
                         },
@@ -166,7 +157,7 @@ const Sidebar = ({
           keepMounted: true,
         }}
         sx={{
-          display: { xs: "block", sm: "none" },
+          display: { xs: "none", md: "block" },
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
             width: drawerWidth,
@@ -183,7 +174,7 @@ const Sidebar = ({
             onClick={handleDrawerToggle}
             sx={{
               mr: 2,
-              display: { sm: "none", xs: "block" },
+              display: { xs: "none", md: "block" },
               height: "50px",
               width: "50px",
               "&:hover": { backgroundColor: theme.palette.sidebarHover },
@@ -210,8 +201,8 @@ const Sidebar = ({
               }}
             >
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTOy4r282WZz8LxMjUt9ZqKrrZfhk7tr8qew&s"
-                alt="logo"
+                src="https://platform.vox.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/8232671/bossbabycover.jpg?quality=90&strip=all&crop=11.206896551724%2C0%2C77.586206896552%2C100&w=1080"
+                alt="logo" width={'100%'}
               />
             </Box>
           </Box>
@@ -221,10 +212,10 @@ const Sidebar = ({
               justifyContent: "center",
               flexDirection: "column",
               alignItems: "center",
-              my: "25px",
+              mb: "25px",
             }}
           >
-            <Typography sx={{ color: "white" }}>Jhon Doe</Typography>
+            <Typography sx={{ color: "#000" }}>Jhon Doe</Typography>
 
             <Box>
               <Typography sx={{ fontSize: "14px" }}>
@@ -238,7 +229,7 @@ const Sidebar = ({
 
       <Drawer
         sx={{
-          display: { sm: "block", xs: "none" },
+          display: { xs: "none", md: "block" },
           width: drawerWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
@@ -286,7 +277,7 @@ const Sidebar = ({
               }}
             >
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTOy4r282WZz8LxMjUt9ZqKrrZfhk7tr8qew&s"
+                src="https://platform.vox.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/8232671/bossbabycover.jpg?quality=90&strip=all&crop=11.206896551724%2C0%2C77.586206896552%2C100&w=1080"
                 alt="logo"
               />
             </Box>
@@ -297,10 +288,10 @@ const Sidebar = ({
               justifyContent: "center",
               flexDirection: "column",
               alignItems: "center",
-              my: "25px",
+              mb: "25px",
             }}
           >
-            <Typography sx={{ color: "000" }}>Jhon Doe</Typography>
+            <Typography sx={{ color: "#000" }}>Jhon Doe</Typography>
 
             <Box>
               <Typography sx={{ fontSize: "14px" }}>
@@ -328,14 +319,14 @@ const Sidebar = ({
                 disablePadding
                 sx={{
                   py: "2px",
-                  borderRadius: "10px",
+                  borderRadius: 1,
                   transition: ".3s",
                   backgroundColor:
                     css === item.text &&
-                    (theme.palette?.sidebarHover || "#34495e"),
+                    (theme.palette?.sidebarHover || "#000"),
                   color: css === item.text && "white",
                   "&:hover": {
-                    backgroundColor: theme.palette?.sidebarHover || "#34495e",
+                    backgroundColor: theme.palette?.sidebarHover || "#000",
                     color: "white",
                     "& .icon": { color: "white" },
                   },
@@ -381,15 +372,15 @@ const Sidebar = ({
                         sx={{
                           py: "2px",
                           pl: 4,
-                          borderRadius: "10px",
+                          borderRadius: 1,
                           transition: ".3s",
                           backgroundColor:
                             subCss === subItem.text &&
-                            (theme.palette?.sidebarHover || "#34495e"),
+                            (theme.palette?.sidebarHover || "#000"),
                           color: subCss === subItem.text && "#000",
                           "&:hover": {
                             backgroundColor:
-                              theme.palette?.sidebarHover || "#34495e",
+                              theme.palette?.sidebarHover || "#000",
                             color: "white",
                             "& .icon": { color: "#fff" },
                           },
@@ -417,7 +408,6 @@ const Sidebar = ({
             </React.Fragment>
           ))}
         </List>
-
         <Divider />
       </Drawer>
     </Box>

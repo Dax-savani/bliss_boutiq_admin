@@ -53,7 +53,7 @@ const CategoryList = () => {
 
   if (loading) {
     return (
-      <Box mt={5} display="flex" justifyContent="center">
+      <Box display="flex" justifyContent="center">
         <CircularProgress />
       </Box>
     );
@@ -61,7 +61,7 @@ const CategoryList = () => {
 
   if (error) {
     return (
-      <Box mt={5} display="flex" justifyContent="center">
+      <Box display="flex" justifyContent="center">
         <Typography variant="h6" color="error">
           {error}
         </Typography>
@@ -70,19 +70,28 @@ const CategoryList = () => {
   }
 
   return (
-    <Box mt={6}>
+    <Box p={2} mt={5}>
       <Typography variant="h4" gutterBottom>
         Category List
       </Typography>
       <Box sx={{ display: "flex", justifyContent: "end" }}>
         <Button
           sx={{
-            marginBottom: "20px",
-            backgroundColor: "#4CAF50",
-            fontWeight: "bold",
-            padding: "10px 20px",
-            color: "white",
-          }}
+            // width: "100%",
+            mb: "20px",
+            textTransform: "unset",
+            border: "1px solid black",
+            padding: "6px 24px",
+            fontSize: "16px",
+            fontWeight: "500",
+            borderRadius: "0px",
+            backgroundColor: '#000',
+            color: '#fff',
+            "&:hover": {
+                backgroundColor: '#fff',
+                color: '#000',
+            },
+        }}
           onClick={() => navigate("/add-category")}
         >
           Add Category
@@ -103,12 +112,12 @@ const CategoryList = () => {
             {categories.map((category, index) => (
               <TableRow key={category._id}>
                 <TableCell>{index + 1}</TableCell>
-                <TableCell>
+                <TableCell sx={{width:'100px'}}>
                   <img
                     src={category.image}
                     alt={category.name}
                     style={{
-                      height: 50,
+                      width:'100%',
                       objectFit: "cover",
                       borderRadius: 4,
                     }}
