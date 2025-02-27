@@ -218,7 +218,10 @@ const Header = ({ open }) => {
                                             color: 'white',
                                         }
                                     }}
-                                    onClick={() => navigate("/login")}
+                                    onClick={() => {
+                                        localStorage.removeItem("token"); // 🔥 Remove token from localStorage
+        navigate("/login", { replace: true }); // 🔥 Redirect to login page
+                                    }}
                                 >
                                     Log Out
                                     {/* <PersonIcon/> */}

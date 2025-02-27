@@ -1,11 +1,11 @@
 // import React from "react";
 // import Header from "./components/global/Header/Header";
 // import Home from "./pages/Home/Home";
-// import {Route, Routes} from "react-router-dom";
+// import { Route, Routes } from "react-router-dom";
 // import AddProduct from "./pages/AddProduct";
-// import {Box, CssBaseline, styled} from "@mui/material";
+// import { Box, CssBaseline, styled } from "@mui/material";
 // import Sidebar from "./components/sidebar/Sidebar";
-// import {ToastContainer} from 'react-toastify';
+// import { ToastContainer } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 // import Login from "./pages/Login";
 // import Category from "./components/Category/Category";
@@ -36,7 +36,7 @@
 //     };
 //     const Main = styled("main", {
 //         shouldForwardProp: (prop) => prop !== "open",
-//     })(({theme, open}) => ({
+//     })(({ theme, open }) => ({
 //         flexGrow: 1,
 //         padding: theme.spacing(3),
 //         transition: theme.transitions.create("margin", {
@@ -53,14 +53,15 @@
 //         }),
 //     }));
 //     return (
-//         <Box sx={{display: "flex"}}>
-//             <CssBaseline/>
-//             <ToastContainer/>
-//             <Header open={open}/>
+//         <Box sx={{ display: "flex" }}>
+//             <CssBaseline />
+//             <ToastContainer />
 
+
+//             <Header open={open} />
 //             <Box
 //                 component="nav"
-//                 sx={{width: {sm: drawerWidth}, flexShrink: {sm: 0}}}
+//                 sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
 //                 aria-label="mailbox folders"
 //             >
 //                 <Sidebar
@@ -73,25 +74,29 @@
 //                     setOpen={setOpen}
 //                 />
 //             </Box>
+
+//             <Routes>
+//                 <Route path="/login" element={<Login />} />
+//             </Routes>
+        
+
 //             <Main open={open}>
 //                 <Routes>
-//                     <Route path="/" element={<Home/>}/>
-//                     <Route path="/add-product" element={<AddProduct1/>}/>
-//                     <Route path="/edit-product/:productId" element={<AddProduct1/>}/>
-//                     <Route path="/login" element={<Login/>}/>
-//                     <Route path="/category" element={<CategoryList/>}/>
-//                     <Route path="/add-category" element={<Category/>}/>
-//                     <Route path="/edit-category/:id" element={<Category/>}/>
-//                     <Route path="/subcategory" element={<SubcategoryList/>}/>
-//                     <Route path="/add-subcategory" element={<Subcategory/>}/>
-//                     <Route path="/edit-subcategory/:id" element={<Subcategory/>}/>
-//                     <Route path='/order' element={<Order/>}/>
+//                     <Route path="/" element={<Home />} />
+//                     <Route path="/add-product" element={<AddProduct1 />} />
+//                     <Route path="/edit-product/:productId" element={<AddProduct1 />} />
+//                     <Route path="/category" element={<CategoryList />} />
+//                     <Route path="/add-category" element={<Category />} />
+//                     <Route path="/edit-category/:id" element={<Category />} />
+//                     <Route path="/subcategory" element={<SubcategoryList />} />
+//                     <Route path="/add-subcategory" element={<Subcategory />} />
+//                     <Route path="/edit-subcategory/:id" element={<Subcategory />} />
+//                     <Route path='/order' element={<Order />} />
 //                 </Routes>
 //             </Main>
 //         </Box>
 //     );
 // };
-
 // export default App;
 
 
@@ -172,6 +177,7 @@ const App = ({ isLoggedIn, onLogout }) => {
                     />
                 </Box>
             )}
+
 
             <Main open={isLoggedIn && open}>
                 <Routes>
