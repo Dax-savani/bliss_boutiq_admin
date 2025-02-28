@@ -172,7 +172,7 @@ function Order() {
     };
 
     return (
-        <Box p={2} mt={5} sx={{}}>
+        <Box p={2} mt={5}>
             <Typography variant="h4" sx={{ mb: 2 }}>
                 Orders List
             </Typography>

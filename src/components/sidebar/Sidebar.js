@@ -11,6 +11,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import CategoryIcon from '@mui/icons-material/Category';
 import BakeryDiningIcon from '@mui/icons-material/BakeryDining';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
+import Person2Icon from '@mui/icons-material/Person2';
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import { Box, Typography, Collapse } from "@mui/material";
@@ -39,6 +40,7 @@ const Sidebar = ({
     { text: "Category", icon: <CategoryIcon />, path: "/category" },
     { text: "Subcategory", icon: <BakeryDiningIcon />, path: "/subcategory" },
     { text: "Order", icon: <CardGiftcardIcon />, path: "/order" },
+    { text: "Contact List", icon: <Person2Icon />, path: "/contact" },
   ];
 
   const handleSubmenuClick = (text) => {
