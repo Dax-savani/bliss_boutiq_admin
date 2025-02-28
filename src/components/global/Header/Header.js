@@ -46,6 +46,10 @@ const Header = ({ open }) => {
             label: "Order",
             to: "/order",
         },
+        {
+            label: "Contact List",
+            to: "/contact",
+        },
     ];
 
     // { text: "Add Product", icon: <MailIcon />, path: "/add-product" },
@@ -220,7 +224,7 @@ const Header = ({ open }) => {
                                     }}
                                     onClick={() => {
                                         localStorage.removeItem("token"); // 🔥 Remove token from localStorage
-        navigate("/login", { replace: true }); // 🔥 Redirect to login page
+                                        navigate("/login", { replace: true }); // 🔥 Redirect to login page
                                     }}
                                 >
                                     Log Out
