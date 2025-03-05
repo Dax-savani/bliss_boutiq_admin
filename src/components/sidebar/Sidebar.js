@@ -11,13 +11,14 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import CategoryIcon from '@mui/icons-material/Category';
 import BakeryDiningIcon from '@mui/icons-material/BakeryDining';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
-import Person2Icon from '@mui/icons-material/Person2';
+import Person4Icon from '@mui/icons-material/Person4';
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import { Box, Typography, Collapse } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import MessageIcon from '@mui/icons-material/Message';
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({
@@ -40,7 +41,8 @@ const Sidebar = ({
     { text: "Category", icon: <CategoryIcon />, path: "/category" },
     { text: "Subcategory", icon: <BakeryDiningIcon />, path: "/subcategory" },
     { text: "Order", icon: <CardGiftcardIcon />, path: "/order" },
-    { text: "Contact List", icon: <Person2Icon />, path: "/contact" },
+    { text: "Message", icon: <MessageIcon />, path: "/contact" },
+    { text: "Users", icon: <Person4Icon />, path: "/user" },
   ];
 
   const handleSubmenuClick = (text) => {

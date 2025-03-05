@@ -47,8 +47,12 @@ const Header = ({ open }) => {
             to: "/order",
         },
         {
-            label: "Contact List",
+            label: "Message",
             to: "/contact",
+        },
+        {
+            label: "Users",
+            to: "/user",
         },
     ];
 

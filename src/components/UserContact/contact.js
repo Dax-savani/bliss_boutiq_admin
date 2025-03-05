@@ -54,10 +54,13 @@ const Contact = () => {
             {!loading &&
                 contacts.map((contact) => (
                     <Card key={contact._id} sx={{ mb: 2, boxShadow: 2 }}>
-                        <CardContent sx={{display:'flex', justifyContent:'space-between' }}>
+                        <CardContent sx={{ display: 'flex', justifyContent: 'space-between' }}>
                             <Box>
                                 <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                                     {contact.firstName} {contact.lastName}
+                                </Typography>
+                                <Typography variant="body1">
+                                    📝 {contact.message ? contact.message : 'No message available'}
                                 </Typography>
                                 <Typography variant="body1">
                                     📧 {contact.email}

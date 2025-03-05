@@ -115,6 +115,7 @@ import Subcategory from "./components/Subcategory/Subcategory";
 import SubcategoryList from "./components/Subcategory/SubcategoryList";
 import Order from "./pages/Order";
 import Contact from "./components/UserContact/contact";
+import Users from "./components/Users/users";
 
 const drawerWidth = 250;
 
@@ -193,6 +194,7 @@ const App = ({ isLoggedIn, onLogout }) => {
                     <Route path="/edit-subcategory/:id" element={<Subcategory />} />
                     <Route path="/order" element={<Order />} />
                     <Route path="/contact" element={<Contact />} />
+                    <Route path="/user" element={<Users />} />
                 </Routes>
             </Main>
         </Box>
